@@ -1,7 +1,7 @@
-const express = require('express');
-const cors = require('cors');
-const dotenv = require('dotenv');
-const pinoHttp = require('pino-http');
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import pinoHttp from 'pino-http';
 
 dotenv.config();
 
@@ -11,7 +11,14 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
-app.use(pinoHttp());
+
+app.use(
+  pinoHttp({
+    transport: {
+      target: 'pino-pretty',
+    },
+  }),
+);
 
 app.get('/notes', (req, res) => {
   res.status(200).json({
@@ -27,7 +34,7 @@ app.get('/notes/:noteId', (req, res) => {
   });
 });
 
-app.get('/test-error', (req, res) => {
+app.get('/test-error', () => {
   throw new Error('Simulated server error');
 });
 
