@@ -20,7 +20,7 @@ import {
 const router = Router();
 
 router.post(
-  '/register',
+  '/auth/register',
   celebrate({
     [Segments.BODY]: registerUserSchema,
   }),
@@ -28,19 +28,19 @@ router.post(
 );
 
 router.post(
-  '/login',
+  '/auth/login',
   celebrate({
     [Segments.BODY]: loginUserSchema,
   }),
   loginUser,
 );
 
-router.post('/refresh', refreshUserSession);
+router.post('/auth/refresh', refreshUserSession);
 
-router.post('/logout', logoutUser);
+router.post('/auth/logout', logoutUser);
 
 router.post(
-  '/request-reset-email',
+  '/auth/request-reset-email',
   celebrate({
     [Segments.BODY]: requestResetEmailSchema,
   }),
@@ -48,7 +48,7 @@ router.post(
 );
 
 router.post(
-  '/reset-password',
+  '/auth/reset-password',
   celebrate({
     [Segments.BODY]: resetPasswordSchema,
   }),
